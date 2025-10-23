@@ -1,0 +1,13 @@
+# Config cho tunnel: {{ getenv "ACCOUNT_NAME" }}
+ingress:
+{% raw %}
+  {{ $accountName := getenv "ACCOUNT_NAME" }}
+  {{range .Containers}}
+    {{if and (eq .Labels.cloudflared_account $accountName) .Labels.cloudflared_hostname}}
+  # Container: {{ .Name }}
+  - hostname: {{ .Labels.cloudflared_hostname }}
+    service: {{ .Labels.cloudflared_service }}
+    {{end}}
+  {{end}}
+{% endraw %}
+  - service: http_status:404
