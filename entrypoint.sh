@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Xử lý tín hiệu shutdown
+# Handle shutdown signals
 trap 'kill ${CLOUDFLARED_PID}' SIGTERM SIGINT
 
-# 1. Khởi chạy cloudflared ở chế độ nền
-# Token được truyền qua biến môi trường $TUNNEL_TOKEN
+# 1. Start cloudflared in background
+# Token is passed via environment variable $TUNNEL_TOKEN
 echo "Starting cloudflared..."
 cloudflared tunnel --no-autoupdate --config /etc/cloudflared/config.yml run &
 CLOUDFLARED_PID=$!
 
-# 2. Khởi chạy docker-gen ở chế độ chính (foreground)
-# Nó sẽ tạo config và gửi SIGHUP (reload) cho cloudflared
+# 2. Start docker-gen in foreground
+# It will generate config and send SIGHUP (reload) signal to cloudflared
 echo "Starting docker-gen..."
 docker-gen \
     -watch \
@@ -19,5 +19,5 @@ docker-gen \
     /etc/docker-gen/config.tmpl \
     /etc/cloudflared/config.yml
 
-# Chờ cloudflared (nếu docker-gen bị lỗi)
+# Wait for cloudflared (if docker-gen fails)
 wait ${CLOUDFLARED_PID}

@@ -1,26 +1,36 @@
-# Sử dụng base image nhỏ gọn
+# Use lightweight base image
 FROM alpine:3.18
 
-# Cài đặt các gói cần thiết
+# Set version arguments
+ARG VERSION=0.1.0
+ARG CLOUDFLARED_VERSION=latest
+ARG DOCKER_GEN_VERSION=0.7.7
+
+LABEL version="${VERSION}"
+LABEL cloudflared_version="${CLOUDFLARED_VERSION}"
+LABEL docker_gen_version="${DOCKER_GEN_VERSION}"
+LABEL description="Cloudflared Companion - Automatic Cloudflare Tunnel configuration for Docker"
+LABEL maintainer="anvu69"
+
+# Install required packages
 RUN apk add --no-cache curl bash
 
-# 1. Cài đặt cloudflared
-RUN curl -L --output cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
+# 1. Install cloudflared
+RUN curl -L --output cloudflared https://github.com/cloudflare/cloudflared/releases/${CLOUDFLARED_VERSION}/download/cloudflared-linux-amd64 \
     && chmod +x cloudflared \
     && mv cloudflared /usr/local/bin/
 
-# 2. Cài đặt docker-gen
-ENV DOCKER_GEN_VERSION 0.7.7
-RUN curl -L https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
+# 2. Install docker-gen
+RUN curl -L https://github.com/jwilder/docker-gen/releases/download/${DOCKER_GEN_VERSION}/docker-gen-linux-amd64-${DOCKER_GEN_VERSION}.tar.gz \
     | tar -C /usr/local/bin -xz docker-gen
 
-# Tạo thư mục config
+# Create config directory
 RUN mkdir -p /etc/cloudflared/
 
-# Sao chép template và entrypoint
+# Copy template and entrypoint
 COPY config.tmpl.j2 /etc/docker-gen/config.tmpl
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Entrypoint sẽ quản lý 2 tiến trình
+# Entrypoint manages both processes
 ENTRYPOINT ["/entrypoint.sh"]

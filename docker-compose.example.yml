@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  cloudflared-companion:
+    image: ghcr.io/anvu69/cloudflared-gen-controller:latest
+    container_name: cloudflared-companion
+    environment:
+      # Your Cloudflare account name
+      ACCOUNT_NAME: 'my-account'
+      # Your Cloudflare Tunnel token
+      TUNNEL_TOKEN: '${TUNNEL_TOKEN}'
+    volumes:
+      # Mount Docker socket for docker-gen to watch containers
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+    networks:
+      - cloudflared-network
+
+  # Example: Web service
+  web:
+    image: nginx:latest
+    container_name: web-service
+    labels:
+      # Must match ACCOUNT_NAME
+      cloudflared_account: 'my-account'
+      # Hostname to expose via Cloudflare Tunnel
+      cloudflared_hostname: 'web.example.com'
+      # Internal service URL
+      cloudflared_service: 'http://web:80'
+    networks:
+      - cloudflared-network
+    restart: unless-stopped
+
+  # Example: API service
+  api:
+    image: myapi:latest
+    container_name: api-service
+    labels:
+      cloudflared_account: 'my-account'
+      cloudflared_hostname: 'api.example.com'
+      cloudflared_service: 'http://api:3000'
+    networks:
+      - cloudflared-network
+    restart: unless-stopped
+
+  # Example: Admin service
+  admin:
+    image: admin-panel:latest
+    container_name: admin-service
+    labels:
+      cloudflared_account: 'my-account'
+      cloudflared_hostname: 'admin.example.com'
+      cloudflared_service: 'http://admin:8080'
+    networks:
+      - cloudflared-network
+    restart: unless-stopped
+
+networks:
+  cloudflared-network:
+    driver: bridge

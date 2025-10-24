@@ -1,4 +1,4 @@
-# Config cho tunnel: {{ getenv "ACCOUNT_NAME" }}
+# Cloudflare Tunnel configuration for account: {{ getenv "ACCOUNT_NAME" }}
 ingress:
 {% raw %}
   {{ $accountName := getenv "ACCOUNT_NAME" }}
@@ -10,4 +10,5 @@ ingress:
     {{end}}
   {{end}}
 {% endraw %}
+  # Default catch-all route
   - service: http_status:404

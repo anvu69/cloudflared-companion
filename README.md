@@ -1,5 +1,14 @@
 # Cloudflared Companion
 
+[![Version](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](VERSION)
+[![Cloudflared](https://img.shields.io/badge/cloudflared-latest-green?style=flat-square&logo=cloudflare)](https://github.com/cloudflare/cloudflared)
+[![Docker Gen](https://img.shields.io/badge/docker--gen-0.7.7-orange?style=flat-square&logo=docker)](https://github.com/jwilder/docker-gen)
+[![GitHub License](https://img.shields.io/github/license/anvu69/cloudflared-companion?style=flat-square)](LICENSE)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://github.com/anvu69/cloudflared-companion/pkgs/container/cloudflared-gen-controller)
+[![GitHub Stars](https://img.shields.io/github/stars/anvu69/cloudflared-companion?style=flat-square&logo=github)](https://github.com/anvu69/cloudflared-companion)
+[![GitHub Issues](https://img.shields.io/github/issues/anvu69/cloudflared-companion?style=flat-square&logo=github)](https://github.com/anvu69/cloudflared-companion/issues)
+[![GitHub Forks](https://img.shields.io/github/forks/anvu69/cloudflared-companion?style=flat-square&logo=github)](https://github.com/anvu69/cloudflared-companion/network/members)
+
 **English** | [Tiếng Việt](#tiếng-việt)
 
 ## Overview
@@ -65,6 +74,16 @@ echo "your-tunnel-token-here" | docker secret create tunnel_token -
 ```
 
 ### 3. Create docker-compose.yml
+
+Copy the example file and customize it:
+
+```bash
+cp docker-compose.example.yml docker-compose.yml
+cp .env.example .env
+# Edit .env with your Cloudflare Tunnel token
+```
+
+Or create manually:
 
 ```yaml
 version: '3.8'
@@ -200,11 +219,25 @@ Stop or remove the container, and the configuration will be automatically update
 
 ```text
 .
-├── Dockerfile              # Multi-stage build for cloudflared and docker-gen
-├── entrypoint.sh          # Main entry point managing both processes
-├── config.tmpl.j2         # Jinja2 template for cloudflared config
-├── .github/workflows/     # CI/CD pipeline for automated builds
-└── README.md              # This file
+├── Dockerfile                    # Multi-stage build for cloudflared and docker-gen
+├── .dockerignore                 # Docker build ignore file
+├── entrypoint.sh                # Main entry point managing both processes
+├── config.tmpl.j2               # Jinja2 template for cloudflared config
+├── VERSION                       # Current version (0.1.0)
+├── CHANGELOG.md                 # Version history and changes
+├── LICENSE                       # MIT License
+├── README.md                     # This file
+├── docker-compose.example.yml   # Example docker-compose configuration
+├── .env.example                 # Example environment variables
+├── .github/
+│   ├── workflows/
+│   │   └── publish.yml          # CI/CD pipeline for automated builds
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md        # Bug report template
+│       ├── feature_request.md   # Feature request template
+│       ├── documentation.md     # Documentation issue template
+│       └── config.yml           # Issue template configuration
+└── .gitignore                    # Git ignore file
 ```
 
 ## Building from Source
@@ -300,6 +333,16 @@ echo "your-tunnel-token-here" | docker secret create tunnel_token -
 ```
 
 ### 3. Tạo docker-compose.yml
+
+Sao chép file ví dụ và tùy chỉnh:
+
+```bash
+cp docker-compose.example.yml docker-compose.yml
+cp .env.example .env
+# Chỉnh sửa .env với token Cloudflare Tunnel của bạn
+```
+
+Hoặc tạo thủ công:
 
 ```yaml
 version: '3.8'
@@ -435,11 +478,25 @@ Dừng hoặc xóa container, cấu hình sẽ được tự động cập nhậ
 
 ```text
 .
-├── Dockerfile              # Build đa giai đoạn cho cloudflared và docker-gen
-├── entrypoint.sh          # Điểm vào chính quản lý cả hai tiến trình
-├── config.tmpl.j2         # Template Jinja2 cho cấu hình cloudflared
-├── .github/workflows/     # Pipeline CI/CD cho các build tự động
-└── README.md              # Tệp này
+├── Dockerfile                    # Build đa giai đoạn cho cloudflared và docker-gen
+├── .dockerignore                 # Tệp ignore cho Docker build
+├── entrypoint.sh                # Điểm vào chính quản lý cả hai tiến trình
+├── config.tmpl.j2               # Template Jinja2 cho cấu hình cloudflared
+├── VERSION                       # Phiên bản hiện tại (0.1.0)
+├── CHANGELOG.md                 # Lịch sử phiên bản và thay đổi
+├── LICENSE                       # Giấy phép MIT
+├── README.md                     # Tệp này
+├── docker-compose.example.yml   # Ví dụ cấu hình docker-compose
+├── .env.example                 # Ví dụ biến môi trường
+├── .github/
+│   ├── workflows/
+│   │   └── publish.yml          # Pipeline CI/CD cho các build tự động
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md        # Mẫu báo cáo lỗi
+│       ├── feature_request.md   # Mẫu yêu cầu tính năng
+│       ├── documentation.md     # Mẫu vấn đề tài liệu
+│       └── config.yml           # Cấu hình mẫu issue
+└── .gitignore                    # Tệp ignore cho Git
 ```
 
 ## Xây Dựng Từ Nguồn

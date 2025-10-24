@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/anvu69/cloudflared-companion/discussions
+    about: Ask questions and discuss ideas
+  - name: Cloudflare Community
+    url: https://community.cloudflare.com/
+    about: Get help from Cloudflare community
+
