@@ -4,7 +4,7 @@
 [![Cloudflared](https://img.shields.io/badge/cloudflared-latest-green?style=flat-square&logo=cloudflare)](https://github.com/cloudflare/cloudflared)
 [![Docker Gen](https://img.shields.io/badge/docker--gen-0.7.7-orange?style=flat-square&logo=docker)](https://github.com/jwilder/docker-gen)
 [![GitHub License](https://img.shields.io/github/license/anvu69/cloudflared-companion?style=flat-square)](LICENSE)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://github.com/anvu69/cloudflared-companion/pkgs/container/cloudflared-gen-controller)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://github.com/anvu69/cloudflared-companion/pkgs/container/cloudflared-companion)
 [![GitHub Stars](https://img.shields.io/github/stars/anvu69/cloudflared-companion?style=flat-square&logo=github)](https://github.com/anvu69/cloudflared-companion)
 [![GitHub Issues](https://img.shields.io/github/issues/anvu69/cloudflared-companion?style=flat-square&logo=github)](https://github.com/anvu69/cloudflared-companion/issues)
 [![GitHub Forks](https://img.shields.io/github/forks/anvu69/cloudflared-companion?style=flat-square&logo=github)](https://github.com/anvu69/cloudflared-companion/network/members)
@@ -58,7 +58,7 @@ Services exposed via Cloudflare Tunnel
 ### 1. Pull the Docker Image
 
 ```bash
-docker pull ghcr.io/anvu69/cloudflared-gen-controller:latest
+docker pull ghcr.io/anvu69/cloudflared-companion:latest
 ```
 
 ### 2. Set Up Your Tunnel Token
@@ -90,7 +90,7 @@ version: '3.8'
 
 services:
   cloudflared-companion:
-    image: ghcr.io/anvu69/cloudflared-gen-controller:latest
+    image: ghcr.io/anvu69/cloudflared-companion:latest
     environment:
       ACCOUNT_NAME: 'my-account'
       TUNNEL_TOKEN: '${TUNNEL_TOKEN}'
@@ -133,7 +133,7 @@ version: '3.8'
 
 services:
   cloudflared-companion:
-    image: ghcr.io/anvu69/cloudflared-gen-controller:latest
+    image: ghcr.io/anvu69/cloudflared-companion:latest
     environment:
       ACCOUNT_NAME: 'production'
       TUNNEL_TOKEN: '${TUNNEL_TOKEN}'
@@ -317,7 +317,7 @@ Dịch vụ được expose qua Cloudflare Tunnel
 ### 1. Kéo Docker Image
 
 ```bash
-docker pull ghcr.io/anvu69/cloudflared-gen-controller:latest
+docker pull ghcr.io/anvu69/cloudflared-companion:latest
 ```
 
 ### 2. Thiết Lập Token Tunnel Của Bạn
@@ -349,7 +349,7 @@ version: '3.8'
 
 services:
   cloudflared-companion:
-    image: ghcr.io/anvu69/cloudflared-gen-controller:latest
+    image: ghcr.io/anvu69/cloudflared-companion:latest
     environment:
       ACCOUNT_NAME: 'my-account'
       TUNNEL_TOKEN: '${TUNNEL_TOKEN}'
@@ -392,7 +392,7 @@ version: '3.8'
 
 services:
   cloudflared-companion:
-    image: ghcr.io/anvu69/cloudflared-gen-controller:latest
+    image: ghcr.io/anvu69/cloudflared-companion:latest
     environment:
       ACCOUNT_NAME: 'production'
       TUNNEL_TOKEN: '${TUNNEL_TOKEN}'
